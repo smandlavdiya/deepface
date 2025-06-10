@@ -18,7 +18,7 @@ blueprint = Blueprint("routes", __name__)
 # pylint: disable=no-else-return, broad-except
 
 
-@blueprint.route("/")
+@blueprint.route("/deepface")
 def home():
     return f"<h1>Welcome to DeepFace API v{DeepFace.__version__}!</h1>"
 
@@ -70,7 +70,7 @@ def extract_image_from_request(img_key: str) -> Union[str, np.ndarray]:
     raise ValueError(f"'{img_key}' not found in request in either json or form data")
 
 
-@blueprint.route("/represent", methods=["POST"])
+@blueprint.route("/deepface/represent", methods=["POST"])
 def represent():
     input_args = (request.is_json and request.get_json()) or (
         request.form and request.form.to_dict()
@@ -96,7 +96,7 @@ def represent():
     return obj
 
 
-@blueprint.route("/verify", methods=["POST"])
+@blueprint.route("/deepface/verify", methods=["POST"])
 def verify():
     input_args = (request.is_json and request.get_json()) or (
         request.form and request.form.to_dict()
@@ -128,7 +128,7 @@ def verify():
     return verification
 
 
-@blueprint.route("/analyze", methods=["POST"])
+@blueprint.route("/deepface/analyze", methods=["POST"])
 def analyze():
     input_args = (request.is_json and request.get_json()) or (
         request.form and request.form.to_dict()
